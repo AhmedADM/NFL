@@ -1,0 +1,41 @@
+@model NFL.Models.Player.Profile.ViewModelPlayerInfo
+<h4>Measurments</h4>
+<hr />
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Measurment.weight)
+            @Html.TextBoxFor(p => p.Measurment.weight, new { @class = "form-control", @type="number" })
+            @Html.ValidationMessageFor(p => p.Measurment.weight, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Measurment.Tall)
+            @Html.TextBoxFor(p => p.Measurment.Tall, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Measurment.Tall, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Measurment.ArmLength)
+            @Html.TextBoxFor(p => p.Measurment.ArmLength, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Measurment.ArmLength, "", new { @class = "text-danger" })
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Measurment.Position)
+            @Html.DropDownListFor(p => p.Measurment.mainPositionId,
+           new SelectList(Model.MainPositions, "Id", "Abbriviation"
+           ), "Select Position", new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Measurment.mainPosition.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

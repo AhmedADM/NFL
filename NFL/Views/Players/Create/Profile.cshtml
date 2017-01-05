@@ -1,0 +1,25 @@
+
+@{
+    ViewData["Title"] = "New";
+}
+
+<form action="Next">
+    <div class="form-group">
+        @Html.Partial("Create/Profile/PersonalInformationForm")<br/><br />
+        @Html.Partial("Create/Profile/AddressForm")<br /><br />
+        @Html.Partial("Create/Profile/ContactInformationForm")
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info col-md-2 col-md-offset-10">Next</button>
+        </div>
+    </div>
+  
+</form>
+<br />
+@section Scripts {
+    <script src="~/Scripts/AutoPupolates.js"></script>
+    <script src="~/Scripts/Edit.js"></script>
+
+
+}
+
+

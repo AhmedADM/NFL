@@ -1,0 +1,90 @@
+@model IEnumerable<NFL.Models.Player.Player>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Players List</h2>
+
+<p>
+    <a class="btn btn-info" href="Players/New">New Player</a>
+</p>
+
+    @if (!Model.Any())
+    {
+        <h4 class="text-danger">No Players in database, click <a href="Players/New">here</a> to insert player(s)</h4>
+    }
+    else
+    {
+        <table class="table" id="PLAYERS">
+            <thead>
+                <tr>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Birth Date
+                    </th>
+                    <th>
+                        Position
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <a href="Players/Details/@player.playerId" >
+                                @Html.DisplayFor(modelPlayer => player.personalInformation.FirstName)&nbsp;
+                                @Html.DisplayFor(modelPlayer => player.personalInformation.LastName)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelPlayer => player.personalInformation.BirthDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelPlayer => player.OtherInformation.Measurments.ElementAt(0).mainPosition.Abbriviation)
+                        </td>
+
+                        <td>
+
+                            <a class="btn btn-danger js-delete"  id="@player.playerId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#PLAYERS").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this player?", function (result) {
+
+                    if (result) {
+
+                        $.ajax({
+                            url: "/Players/Delete/" + button.attr("id"),
+                            method: "DELETE",
+
+                            success: function () {
+                                $("#PLAYERS").row(button.parent("tr")).remove().draw();
+                            }
+
+                        });
+                    }
+
+                });
+            });
+
+
+        });
+    </script>
+}
+        

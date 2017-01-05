@@ -1,0 +1,94 @@
+@model NFL.Models.Player.ViewModelProfile
+
+<div class="container">
+    <h4><b>Contact Information</b></h4>
+    <hr />
+    @*Email(s) STARTS*@
+    <div class="form-group">
+        <h4>Email(s)</h4>
+        <div class="col-md-12">
+            @Html.ValidationMessageFor(p => p.Emails, "", new { @class = "text-danger" })
+        </div>
+        @{
+            int Length = Model.Emails.Length;
+            for (int index = 0; index < Length; index++)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(p => p.Emails[index].email, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 contact">
+                        @Html.DropDownListFor(p => p.Emails[index].Type,
+                            new SelectList(new[] { "Work", "Personal" }), "Select Type", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.ValidationMessageFor(p => p.Emails[index].Type, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(p => p.Emails[index].email, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            }
+
+        }
+
+
+    </div>
+    @*Email(s) ENDS*@
+
+    @*Fax(s) STARTS*@
+    <div class="form-group">
+        <h4>Fax(s)</h4>
+        @{
+            Length = Model.Faxes.Length;
+            for (int index = 0; index < Length; index++)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(p => p.Faxes[index].Number, new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-2 contact">
+                        @Html.DropDownListFor(p => p.Faxes[index].Type,
+                  new SelectList(new[] { "Work", "Home" }), "Select Type", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.ValidationMessageFor(p => p.Faxes[index].Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    @*Fax(s) ENDS*@
+
+    @*Phone(s) STARTS*@
+    <div class="form-group">
+        <h4>Phone(s)</h4>
+        <div class="col-md-12">
+            @Html.ValidationMessageFor(p => p.Phones, "", new { @class = "text-danger" })
+        </div>
+        @{
+            Length = Model.Phones.Length;
+            for (int index = 0; index < Length; index++)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(p => p.Phones[index].Number, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 contact">
+                        @Html.DropDownListFor(p => p.Phones[index].Type,
+                         new SelectList(new[] { "Work", "Home", "Cell" }), "Select Type", new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.ValidationMessageFor(p => p.Phones[index].Type, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(p => p.Phones[index].Number, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    @*Phone(s) ENDS*@
+
+</div>
+@*Contact Information ENDS*@

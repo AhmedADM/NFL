@@ -1,0 +1,12 @@
+@model NFL.Models.Player.Information
+
+@{
+    ViewData["Title"] = "Player Information";
+}
+
+<div class="container" id="PlayerInformation">
+    @Html.Partial("Details/Player_Information/Bio")
+    @Html.Partial("Details/Player_Information/Education")
+    @Html.Partial("Details/Player_Information/Measurments")
+</div>
+

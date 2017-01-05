@@ -1,0 +1,11 @@
+@model NFL.Models.Player.Profile.ViewModelPlayerInfo
+
+<div class="container" >
+        @Html.LabelFor(p => p.Bio)
+        @Html.TextAreaFor(p => p.Bio, new { @class = "form-control", @rows ="5", @style= "max-width:800px;" })
+        @Html.ValidationMessageFor(p => p.Bio, "", new { @class = "text-danger" })
+</div>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

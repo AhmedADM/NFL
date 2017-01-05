@@ -1,0 +1,32 @@
+﻿@model NFL.Models.Player.Information
+
+@{ 
+    var OtherInformation = Model;
+}
+<form>
+    <div class="Details">
+        <h3>Bio</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(B => OtherInformation.informationId)
+            @*@Html.HiddenFor(B => B.OtherInformation.informationId)*@
+            <dd>
+                <div class="entry">
+                    @Html.DisplayFor(B => OtherInformation.Bio)
+                </div>
+                <div class="edit_field" style="display:none">
+                    @Html.TextAreaFor(B => OtherInformation.Bio, new { @class = "form-control ", @rows = "5", @style = "max-width:800px;" })
+                    @Html.ValidationMessageFor(B => OtherInformation.Bio, "", new { @class = "text-danger" })
+                </div>
+            </dd>
+
+            <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+                   value="" />
+
+            <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+                   value="" />
+        </dl>
+        @Html.Partial("Details/EditButtons", Model.informationId)
+    </div>
+</form>
+

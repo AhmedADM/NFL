@@ -1,0 +1,37 @@
+@model NFL.Models.Player.Player
+
+@{
+    ViewData["Title"] = "Details";
+
+}
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    <li class="active"><a href="#">Profile</a></li>
+    <li><a href="#">Player Information</a></li>
+</ul>
+
+@Html.Partial("Details/Profile/Profile")
+@Html.Partial("Details/Player_Information/PlayerInformation", Model.OtherInformation)
+@Html.HiddenFor(p => p.playerId)
+
+
+@section Scripts {
+    <script src="~/Scripts/AutoPupolates.js"></script>
+    <script src="~/Scripts/Edit.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //Select options set to default values for contact information types
+            var selections = $('select');
+            
+            selections.each(function (index) {
+                var selected = $(this).attr('value');
+                //$(this).children().contains(selected).attr('selected', true);
+                $(this).children().each(function (i) {
+                    if ($(this).text() == selected || $(this).val() == selected)
+                        $(this).attr('selected', true);
+                });
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,20 @@
+@model NFL.Models.Player.Player
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container" id="Profile">
+    <form>
+        @Html.Partial("Details/Profile/PersonalInformation", Model.personalInformation)
+    </form>
+       
+    <form action="/Players/Update" id="ADD" >
+        @Html.Partial("Details/Profile/Address", Model.Addresses)
+    </form> 
+
+    <form action="/Players/Update" id="Contact">
+        @Html.Partial("Details/Profile/ContactInformation", Model.contactInformation)
+    </form>
+
+</div>

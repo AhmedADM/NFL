@@ -1,0 +1,134 @@
+@model NFL.Models.Player.Information
+<form>
+    <div class="Details">
+        <h3>Eduction(s)</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(edu =>Model.informationId,
+    new { Name = "OtherInformation.informationId", id = "OtherInformation_informationId" })
+            @for (var index = 0; index < Model.Educations.Count; index++)
+            {
+                var OtherInformation = Model;
+                <h4>Education (@(index + 1)) </h4>
+                @*Display School Name STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(edu => OtherInformation.Educations[index].Name):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.HiddenFor(edu => OtherInformation.Educations[index].Id)
+                        @Html.HiddenFor(edu => OtherInformation.Educations[index].informationId)
+                        @Html.DisplayFor(edu => OtherInformation.Educations[index].Name)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(edu => OtherInformation.Educations[index].Name, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(edu => OtherInformation.Educations[index].Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Display School Name ENDS*@
+
+                @*Display School Location STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(edu => OtherInformation.Educations[index].Location):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.DisplayFor(edu => OtherInformation.Educations[index].Location)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(edu => OtherInformation.Educations[index].Location, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(edu => OtherInformation.Educations[index].Location, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Display School Location ENDS*@
+
+                @*Display School Degree STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(model => OtherInformation.Educations[index].Type):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.DisplayFor(edu => OtherInformation.Educations[index].Type)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(edu => OtherInformation.Educations[index].Type, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(edu => OtherInformation.Educations[index].Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Display School Degree ENDS*@
+
+                @*Display Degree STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(model => OtherInformation.Educations[index].Degree):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.DisplayFor(edu => OtherInformation.Educations[index].Degree)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(edu => OtherInformation.Educations[index].Degree, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(edu => OtherInformation.Educations[index].Degree, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Display Degree ENDS*@
+
+                @*Display Graduation Date STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(model => OtherInformation.Educations[index].Date):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.DisplayFor(edu =>OtherInformation.Educations[index].Date)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(edu =>OtherInformation.Educations[index].Date, "{0:dd MMM yyyy}",
+                             new { @class = "form-control edit_field", @style = "min-width:280px;" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(edu =>OtherInformation.Educations[index].Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Display Graduation Date ENDS*@
+            }
+
+            <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+                   value="" />
+
+
+            <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+                   value="School name : ,School location : ,Degree type : ,Degree name : ,Graduation Date : " />
+        </dl>
+
+        @Html.Partial("Details/EditButtons", Model.informationId)
+    </div>
+</form>
+
+

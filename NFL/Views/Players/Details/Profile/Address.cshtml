@@ -1,0 +1,153 @@
+@model List<NFL.Models.Player.Address>
+
+@{ 
+    var Addresses = Model;
+}
+
+<div class="container ForProfile">
+    <h3>Address</h3>
+    <hr />
+
+    <dl class="dl-horizontal">
+
+        @*Displaying Address STARTS*@
+        <dt>
+            @Html.DisplayNameFor(Add => Addresses[0].Street) :
+        </dt>
+        <dd>
+
+            <div class="entry">
+                @Html.DisplayFor(Add => Addresses[0].Street)
+            </div>
+            <div class="edit_field" style="display:none">
+                @Html.HiddenFor(Add => Addresses[0].Id)
+                @Html.HiddenFor(Add => Addresses[0].playerId)
+                @Html.HiddenFor(Add => Addresses[0].locationId)
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(Add => Addresses[0].Street, new { @class = "form-control " })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(Add => Addresses[0].Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </dd>
+        @*Displaying Address ENDS*@
+
+
+        @*Displaying Zip Code STARTS*@
+        <dt>
+            @Html.DisplayNameFor(Add => Addresses[0].Location.ZipCode) :
+        </dt>
+        <dd>
+
+
+            <div class="entry">
+                @Html.DisplayFor(Add => Addresses[0].Location.ZipCode)
+            </div>
+            <div class="edit_field" style="display:none">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(Add => Addresses[0].Location.ZipCode, new { @class = "form-control " })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(Add => Addresses[0].Location.ZipCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </dd>
+        @*Displaying Zip Code ENDS*@
+
+        @*Displaying City STARTS*@
+        <dt>
+            @Html.DisplayNameFor(Add => Addresses[0].Location.City) :
+        </dt>
+        <dd>
+
+            <div class="entry">
+                @Html.DisplayFor(Add => Addresses[0].Location.City)
+            </div>
+            <div class="edit_field" style="display:none">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(Add => Addresses[0].Location.City, (Model[0].Location.City != null) ?
+       new SelectList(new[] { Model[0].Location.City }) : new SelectList(new[] { "" }), new { @class = "form-control" , @value= Model[0].Location.City })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(Add => Addresses[0].Location.City, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </dd>
+        @*Displaying City ENDS*@
+
+        @*Displaying State STARTS*@
+        <dt>
+            @Html.DisplayNameFor(Add => Addresses[0].Location.State) :
+        </dt>
+        <dd>
+            <div class="entry">
+                @Html.DisplayFor(Add => Addresses[0].Location.StateName)
+            </div>
+            <div class="edit_field" style="display:none">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(Add => Addresses[0].Location.State, new { @class = "form-control " })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(Add => Addresses[0].Location.State, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </dd>
+        @*Displaying State ENDS*@
+
+
+        @Html.HiddenFor(Add => Addresses[0].Location.City)
+        @Html.HiddenFor(Add => Addresses[0].Location.StateName)
+        @Html.HiddenFor(Add => Addresses[0].Location.County)
+        @Html.HiddenFor(Add => Addresses[0].Location.lat)
+        @Html.HiddenFor(Add => Addresses[0].Location.lng)
+        @Html.HiddenFor(Add => Addresses[0].Location.Id)
+
+        <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+               value="" />
+
+        <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+               value="Street : ,Zip Code :,City :  ,State : " />
+
+
+    </dl>
+    @Html.Partial("Details/EditButtons", Addresses[0].playerId)
+</div>
+
+@section Scripts {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

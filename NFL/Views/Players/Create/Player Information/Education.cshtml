@@ -1,0 +1,46 @@
+@model NFL.Models.Player.Profile.ViewModelPlayerInfo
+
+<h4>Education</h4>
+<hr />
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Education.Name)
+            @Html.TextBoxFor(p => p.Education.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Education.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Education.Type)
+            @Html.DropDownListFor(p => p.Education.Type,
+            new SelectList(new[] { "General Education Degree (GED)", "Bachelor's Degree" }),"Select Degree",
+            new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Education.Type, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Education.Degree)
+            @Html.TextBoxFor(p => p.Education.Degree, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Education.Degree, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.Education.Location)
+            @Html.TextBoxFor(p => p.Education.Location, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Education.Location, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.HiddenFor(p => p.Education.Date)
+    </div>
+
+
+
+    <div class="col-md-10">
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

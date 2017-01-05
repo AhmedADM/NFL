@@ -1,0 +1,20 @@
+@model NFL.Models.Player.Profile.ViewModelPlayerInfo
+
+<form action="/Players/Add">
+    <div class="form-group">
+        @Html.Partial("Create/Player Information/Bio")<br /><br />
+        @Html.Partial("Create/Player Information/Education")<br /><br />
+        @Html.Partial("Create/Player Information/Measurments")<br />
+
+        <a href="javascript:history.go(-1)" class="btn btn-default">Previous</a>
+        <button type="submit" class="btn btn-info">Save</button>
+    </div>
+   
+
+
+    @Html.HiddenFor(p => p.Id)
+</form>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

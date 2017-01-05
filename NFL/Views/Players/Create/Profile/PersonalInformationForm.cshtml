@@ -1,0 +1,47 @@
+@model NFL.Models.Player.ViewModelProfile
+
+<div class="container">
+    <h4><b>Personal Information</b></h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.personalInformation.FirstName)
+            @Html.TextBoxFor(p => p.personalInformation.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.personalInformation.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="col-md-4">
+            @Html.LabelFor(p => p.personalInformation.LastName)
+            @Html.TextBoxFor(p => p.personalInformation.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.personalInformation.LastName, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-3" >
+            @Html.LabelFor(p => p.personalInformation.BirthDate)
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(p => p.personalInformation.BirthDate, "{0:dd MMM yyyy}", new { @class = "form-control", @style= "min-width:280px;" })
+                <i class="form-control-feedback glyphicon glyphicon-calendar" ></i>
+            </div>
+            @Html.ValidationMessageFor(p => p.personalInformation.BirthDate, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-2 col-md-push-1">
+            @Html.LabelFor(p => p.personalInformation.Gender)
+            @Html.DropDownListFor(p => p.personalInformation.Gender,
+                new SelectList(new[] { "Male", "Female" }), "Select Type", new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.personalInformation.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+@*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+ 
+}

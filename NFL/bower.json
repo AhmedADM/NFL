@@ -1,0 +1,6 @@
+{
+  "name": "myproject",
+  "dependencies": {
+    "bootbox.js": "bootbox#^4.4.0"
+  }
+}

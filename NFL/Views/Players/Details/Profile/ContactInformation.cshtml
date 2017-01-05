@@ -1,0 +1,184 @@
+@model NFL.Models.Player.ContactInformation
+@{
+    var playerId = Model.playerId;
+}
+
+
+<div class="container ForProfile">
+    <h3>Contact Information</h3>
+    <hr />
+
+    <dl class="dl-horizontal">
+
+        @*Displaying Email(s) STARTS*@
+        @if (Model.Emails.Any())
+        {
+
+            <div class="col-md-10" style="background-color:#808080">
+                <h4>Email(s)</h4>
+
+                @for (var index = 0; index < Model.Emails.Count; index++)
+                {
+                    var contactInformation = Model;
+                    <dt>
+                        <div class="entry">
+
+                            @Html.HiddenFor(em => contactInformation.Emails[index].Id)
+                            @Html.DisplayFor(em => contactInformation.Emails[index].Type) :
+                        </div>
+
+                    </dt>
+                    <dd>
+
+                        <div class="entry">
+                            @Html.DisplayFor(em => contactInformation.Emails[index].email)
+                        </div>
+                        <div class="edit_field" style="display:none">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(em => contactInformation.Emails[index].email, new { @class = "form-control " })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(em => contactInformation.Emails[index].Type,
+                                             new SelectList(new[] { "Personal", "Work" }), "SelectType", new { @class = "form-control", @value = Model.Emails[index].Type })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(em => contactInformation.Emails[index].Type, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(em => contactInformation.Emails[index].email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+
+                }
+            </div>
+        }
+
+        @*Displaying Email(s) ENDS*@
+
+
+        @*Displaying Phone(s) STARTS*@
+        @if (Model.PhoneNumbers.Any())
+        {
+
+            <div class="col-md-10" style="background-color:#0094ff">
+                <h4>Phone(s)</h4>
+                @for (var index = 0; index < Model.PhoneNumbers.Count; index++)
+                {
+                    var contactInformation = Model;
+                    <dt>
+                        <div class="entry">
+                            @Html.HiddenFor(ph => contactInformation.PhoneNumbers[index].Id)
+                            @Html.DisplayFor(ph => contactInformation.PhoneNumbers[index].Type) :
+                        </div>
+
+                    </dt>
+                    <dd>
+                        <div class="entry">
+                            @Html.DisplayFor(ph => contactInformation.PhoneNumbers[index].Number)
+                        </div>
+                        <div class="edit_field" style="display:none">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(ph => contactInformation.PhoneNumbers[index].Number, new { @class = "form-control " })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(ph => contactInformation.PhoneNumbers[index].Type,
+                                        new SelectList(new[] { "Home", "Personal", "Work" }), "Select Type", new { @class = "form-control", @value = Model.PhoneNumbers[index].Type })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(ph => contactInformation.PhoneNumbers[index].Type, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(ph => contactInformation.PhoneNumbers[index].Number, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+
+                }
+            </div>
+        }
+
+        @*Displaying Phone(s) ENDS*@
+
+        @*Displaying Fax(s) STARTS*@
+        @if (Model.Faxes.Any())
+        {
+            <div class="col-md-10" style="background-color:#b6ff00">
+                <h4>Fax(s)</h4>
+
+                @for (var index = 0; index < Model.Faxes.Count; index++)
+                {
+                    var contactInformation = Model;
+                    <dt>
+                        <div class="entry">
+                            @Html.DisplayFor(fx => contactInformation.Faxes[index].Type) :
+                        </div>
+
+                    </dt>
+                    <dd>
+                        <div class="entry">
+                            @Html.DisplayFor(fx => contactInformation.Faxes[index].Number)
+                        </div>
+                        <div class="edit_field" style="display:none">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(fx => contactInformation.Faxes[index].Number, new { @class = "form-control " })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(fx => contactInformation.Faxes[index].Type,
+                                          new SelectList(new[] { "Work", "Personal" }), "Select Type", new { @class = "form-control", @value = Model.Faxes[index].Type })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(fx => contactInformation.Faxes[index].Type, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(fx => contactInformation.Faxes[index].Number, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+
+                }
+
+            </div>
+        }
+        @*Displaying Phone(s) ENDS*@
+
+        <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+               value="" />
+
+        <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+               value="" />
+
+    </dl>
+
+
+
+    @Html.HiddenFor(contactInformation => contactInformation.playerId,
+    new { Name = "contactInformation.playerId", id = "contactInformation_playerId" })
+    @Html.Partial("Details/EditButtons", Model.playerId)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

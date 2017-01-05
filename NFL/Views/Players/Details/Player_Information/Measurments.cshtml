@@ -1,0 +1,117 @@
+@model NFL.Models.Player.Information
+@{ 
+    var Positions = (NFL.Models.Player.Players_Information.MainPosition [])TempData["Positions"];
+    TempData.Keep("Positions");
+}
+<form>
+    <div>
+        <h3>Measurments</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(edu => Model.informationId,
+     new { Name = "OtherInformation.informationId", id = "OtherInformation_informationId" })
+            @for (var index = 0; index < Model.Measurments.Count; index++)
+            {
+                var OtherInformation = Model;
+                @*Displaying Weight STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(mgr => OtherInformation.Measurments[index].weight):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.HiddenFor(mgr => OtherInformation.Measurments[index].Id)
+                        @Html.HiddenFor(mgr => OtherInformation.Measurments[index].informationId)
+                        @Html.DisplayFor(mgr => OtherInformation.Measurments[index].weight)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(mgr => OtherInformation.Measurments[index].weight, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].weight, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Displaying Weight ENDS*@
+
+                @*Displaying Height STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(mgr => OtherInformation.Measurments[index].Tall):
+                </dt>
+                <dd>
+
+                    <div class="entry">
+                        @Html.DisplayFor(mgr => OtherInformation.Measurments[index].Tall)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(mgr => OtherInformation.Measurments[index].Tall, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].Tall, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Displaying Height ENDS*@
+
+                @*Displaying Arm Length STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(mgr => OtherInformation.Measurments[index].ArmLength):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.DisplayFor(mgr => OtherInformation.Measurments[index].ArmLength)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(mgr => OtherInformation.Measurments[index].ArmLength, new { @class = "form-control " })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].ArmLength, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Displaying Arm Length ENDS*@
+
+                @*Displaying Position STARTS*@
+                <dt>
+                    @Html.DisplayNameFor(mgr => OtherInformation.Measurments[index].mainPosition.Abbriviation):
+                </dt>
+                <dd>
+                    <div class="entry">
+                        @Html.DisplayFor(mgr => OtherInformation.Measurments[index].mainPosition.Position)
+                    </div>
+                    <div class="edit_field" style="display:none">
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                @*@Html.TextBoxFor(mgr => OtherInformation.Measurments[index].mainPositionId,
+                                 new { @class = "form-control" })*@
+                                @Html.DropDownListFor(mgr => OtherInformation.Measurments[index].mainPositionId,
+                           new SelectList(Positions, "Id","Position"),
+                           "Select Position", new { @class = "form-control" , @value = OtherInformation.Measurments[index].mainPositionId })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].mainPositionId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                @*Displaying Position ENDS*@
+
+            }
+            <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+                   value="" />
+
+            <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+                   value="Weight : ,Height : ,Arm Length : ,Position : " />
+        </dl>
+        @Html.Partial("Details/EditButtons", Model.informationId)
+    </div>
+</form>

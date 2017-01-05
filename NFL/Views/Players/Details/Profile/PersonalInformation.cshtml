@@ -1,0 +1,138 @@
+
+@model NFL.Models.Player.PersonalInformation
+
+@{ 
+    var personalInformation = Model;
+}
+
+    <div class="container ForProfile">
+
+        <input class="required_data" type="hidden" id="PeopertySelector" value="p" />
+        <h3>Personal Information</h3>
+        <hr />
+
+
+
+        <dl class="dl-horizontal">
+
+            @*Displaying Full Name STARTS*@
+            <dt>
+                Full Name :
+            </dt>
+            <dd>
+
+                <div class="entry">
+                    @Html.DisplayFor(p => personalInformation.FirstName)
+                    @Html.DisplayFor(p => personalInformation.LastName)
+                </div>
+                <div class="edit_field" style="display:none">
+                    @Html.HiddenFor(p => personalInformation.playerId)
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(p => personalInformation.FirstName, new { @class = "form-control " })
+                        </div>
+                        <div class="col-md-8">
+                            @Html.ValidationMessageFor(p => personalInformation.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </dd>
+            @*Displaying Full Name ENDS*@
+
+            @*Displaying BIRTHDATE STARTS*@
+            <dt>
+                @Html.DisplayNameFor(p => personalInformation.BirthDate) :
+            </dt>
+            <dd>
+                <div class="entry">
+                    @Html.DisplayFor(p => personalInformation.BirthDate)
+                </div>
+
+                <div class="edit_field" style="display:none">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(p => personalInformation.LastName, new { @class = "form-control " })
+                        </div>
+                        <div class="col-md-8">
+                            @Html.ValidationMessageFor(p => personalInformation.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </dd>
+            @*Displaying BIRTHDATE ENDS*@
+
+            @*Displaying Age STARTS*@
+            <dt>
+                @Html.DisplayNameFor(p => personalInformation.Age) :
+            </dt>
+            <dd>
+                <div class="entry">
+                    @Html.DisplayFor(p => personalInformation.Age)
+                </div>
+                <div class="edit_field" style="display:none;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class='input-group'>
+                                @Html.TextBoxFor(p => personalInformation.BirthDate, "{0:dd MMM yyyy}",
+                             new { @class = "form-control edit_field", @style = "min-width:280px;" })
+                                <span class="input-group-addon">
+                                    <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+
+                            @Html.ValidationMessageFor(p => personalInformation.BirthDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </dd>
+            @*Displaying Age ENDS*@
+
+            @*Displaying Sex STARTS*@
+            <dt>
+                @Html.DisplayNameFor(p => personalInformation.Gender) :
+            </dt>
+            <dd>
+                <div class="entry">
+                    @Html.DisplayFor(p => personalInformation.Gender)
+                </div>
+
+                <div class="edit_field" style="display:none;">
+
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(p => personalInformation.Gender,
+            new SelectList(new []  { "Male", "Female" }), "Select Gender", new { @class = "form-control" , @value= Model.Gender})
+
+                        </div>
+                        <div class="col-md-8">
+                            @Html.ValidationMessageFor(p => personalInformation.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </dd>
+            @*Displaying Sex ENDS*@
+
+            <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+                   value="First Name : ,Last Name : ,Date of Birth : ,Gender : " />
+            <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+                   value="" />
+
+
+        </dl>
+        @Html.Partial("Details/EditButtons", Model.playerId)
+    </div>
+
+
+
+
+
+
