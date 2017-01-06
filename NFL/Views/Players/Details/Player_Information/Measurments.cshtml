@@ -26,7 +26,7 @@
                     <div class="edit_field" style="display:none">
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.TextBoxFor(mgr => OtherInformation.Measurments[index].weight, new { @class = "form-control " })
+                                @Html.EditorFor(mgr => OtherInformation.Measurments[index].weight, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                             <div class="col-md-8">
                                 @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].weight, "", new { @class = "text-danger" })
@@ -48,7 +48,7 @@
                     <div class="edit_field" style="display:none">
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.TextBoxFor(mgr => OtherInformation.Measurments[index].Tall, new { @class = "form-control " })
+                                @Html.EditorFor(mgr => OtherInformation.Measurments[index].Tall, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                             <div class="col-md-8">
                                 @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].Tall, "", new { @class = "text-danger" })
@@ -69,7 +69,7 @@
                     <div class="edit_field" style="display:none">
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.TextBoxFor(mgr => OtherInformation.Measurments[index].ArmLength, new { @class = "form-control " })
+                                @Html.EditorFor(mgr => OtherInformation.Measurments[index].ArmLength, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                             <div class="col-md-8">
                                 @Html.ValidationMessageFor(mgr => OtherInformation.Measurments[index].ArmLength, "", new { @class = "text-danger" })
@@ -91,7 +91,7 @@
                         <div class="row">
                             <div class="col-md-4">
 
-                                @*@Html.TextBoxFor(mgr => OtherInformation.Measurments[index].mainPositionId,
+                                @*@Html.EditorFor(mgr => OtherInformation.Measurments[index].mainPositionId,
                                  new { @class = "form-control" })*@
                                 @Html.DropDownListFor(mgr => OtherInformation.Measurments[index].mainPositionId,
                            new SelectList(Positions, "Id","Position"),

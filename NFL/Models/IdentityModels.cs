@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NFL.Models.Players_Information;
 using NFL.Models.Player.Players_Information;
-using NFL.Models.Stadiums;
+
 
 namespace NFL.Models.Player
 {
@@ -69,7 +69,7 @@ namespace NFL.Models.Player
 
 
         //Stadiums
-        public DbSet<Stadium> Stadium { get; set; }
+       // public DbSet<Stadium> Stadium { get; set; }
     }
 
     

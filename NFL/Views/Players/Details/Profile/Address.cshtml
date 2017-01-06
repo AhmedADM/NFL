@@ -9,7 +9,6 @@
     <hr />
 
     <dl class="dl-horizontal">
-
         @*Displaying Address STARTS*@
         <dt>
             @Html.DisplayNameFor(Add => Addresses[0].Street) :
@@ -25,7 +24,7 @@
                 @Html.HiddenFor(Add => Addresses[0].locationId)
                 <div class="row">
                     <div class="col-md-4">
-                        @Html.TextBoxFor(Add => Addresses[0].Street, new { @class = "form-control " })
+                        @Html.EditorFor(Add => Addresses[0].Street, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                     <div class="col-md-8">
                         @Html.ValidationMessageFor(Add => Addresses[0].Street, "", new { @class = "text-danger" })
@@ -50,7 +49,7 @@
             <div class="edit_field" style="display:none">
                 <div class="row">
                     <div class="col-md-4">
-                        @Html.TextBoxFor(Add => Addresses[0].Location.ZipCode, new { @class = "form-control " })
+                        @Html.EditorFor(Add => Addresses[0].Location.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                     <div class="col-md-8">
                         @Html.ValidationMessageFor(Add => Addresses[0].Location.ZipCode, "", new { @class = "text-danger" })
@@ -94,7 +93,7 @@
             <div class="edit_field" style="display:none">
                 <div class="row">
                     <div class="col-md-4">
-                        @Html.TextBoxFor(Add => Addresses[0].Location.State, new { @class = "form-control " })
+                        @Html.EditorFor(Add => Addresses[0].Location.State, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                     <div class="col-md-8">
                         @Html.ValidationMessageFor(Add => Addresses[0].Location.State, "", new { @class = "text-danger" })
