@@ -4,6 +4,8 @@
     //Show Player's Details Including personal Information and Player Information
     var profile = $("div#Profile").show();
 
+    var playerId = $("#playerId").val();
+
 
     var playerInfo = $("div#PlayerInformation").hide();
 
@@ -29,12 +31,11 @@
         Selected.addClass("active");
         Selected.siblings().removeClass("active");
 
-
         if (Selected.find("a").text() == "Profile") {
             playerInfo.hide();
             profile.fadeIn();
 
-        } else {
+        } else if (Selected.find("a").text() == "Player Information") {
             profile.hide();
             playerInfo.fadeIn();
 
@@ -43,7 +44,7 @@
 
     var form;
     var button_group = $("div.ForProfile").find("div.pull-right");
-    var details_section;
+    var details_section ;
     var edit_button;
     var cancelSaveButton;
     var saveButton;
@@ -71,11 +72,11 @@
         originalLabels = [];
         originalEntries = [];
 
+        form = $(this).closest("form");
 
-
-        details_section = $(this).parent().parent().find("dl.dl-horizontal");
+        details_section = form.find("dl.dl-horizontal");
         replacementLabels = details_section.find("input#replacementLabels").val().split(',');
-
+    
         details_section.children("dt").each(function (index) {
 
             //Replace original labels
@@ -88,13 +89,15 @@
 
         details_section.find("input#originalLabels").val(originalLabels);
 
+        
+
         details_section.find("div.entry").css("display", "none");
 
         //alert(JSON.stringify(originalEntries));
         details_section.find("div.edit_field").css("display", "block");
 
-        form = $(this).closest("form");
-      
+        
+
         form[0].reset();
         var OtherForms
         //var keyword = $('input#PeopertySelector').val();
@@ -103,7 +106,7 @@
     // edit_button ENDS//
 
     // cancelSaveButton STARTS//
- 
+
     $(document).on("click", ".cancelSave_button", function () {
         edit_button = $(this).siblings('.edit_button');
         cancelSaveButton = $(this);
@@ -113,7 +116,7 @@
         cancelSaveButton.css("display", "none");
         saveButton.css("display", "none");
 
-        details_section = $(this).parent().parent().find("dl.dl-horizontal");
+  
 
         originalLabels = details_section.find("input#originalLabels").val().split(',');
         details_section.find("input#originalLabels").val('');
@@ -134,40 +137,41 @@
     // cancelSaveButton ENDS//
 
     // saveButton STARTS//
-    
+
     $(document).on("click", ".save_button", function (e) {
         edit_button = $(this).siblings('.edit_button');
         cancelSaveButton = $(this).siblings('.cancelSave_button');
         saveButton = $(this);
 
-      e.preventDefault();
+        e.preventDefault();
 
 
         //Update values by ajax request
-     
+
         var keyword = $('input#PeopertySelector').val();
         var formValues = form.serializeArray();
-      
+
         var DATA = {};
         DATA = formValues;
-      
-       // alert(JSON.stringify(DATA));
-        var playerId = $(this).attr('id');
-        
-        details_section = saveButton.parent().siblings("dl.dl-horizontal");
+
+        //Get update url
+        var URL = $("input#URL").val();
 
         $.ajax({
-            url: "/Players/Update/" + playerId,
+            url: URL,
             method: "PUT",
             data: DATA,
             success: function (data) {
-                
+
                 form.html(data);
                 loadDatePicker();
             },
             error: function () {
-              
-                form.valid();
+
+                //$.validator.unobtrusive.parse(form);
+                alert("Please correct the below error(s)");
+
+
             }
         });
 

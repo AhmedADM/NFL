@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using NFL.Models.Player;
 using NFL.Models.Players_Information;
@@ -13,10 +11,8 @@ using System.Threading.Tasks;
 using NFL.Models.Player.Profile;
 using System.Xml.Serialization;
 using System.IO;
-using Newtonsoft.Json.Linq;
-using System.Net.Http;
 using System.Data.Entity.Migrations;
-using WebGrease.Css.Extensions;
+using NFL.Models.Addresses;
 
 namespace NFL.Controllers
 {
@@ -156,12 +152,13 @@ namespace NFL.Controllers
             var players = _context.Player
                           .Include(p => p.personalInformation)
                           .Include(p => p.OtherInformation.Measurments)
-                          .OrderBy(p => p.playerId).ToList();
+                          .OrderBy(p => p.playerId)
+                          .ToList();
 
-
-
+            
             //Include Main Positions of Measurments
 
+       
             var length = players.Count;
             for (int index = 0; index < length; index++)
             {
@@ -190,11 +187,6 @@ namespace NFL.Controllers
                                .Include(c => c.contactInformation)
 
 
-
-                               //Include Addresses
-
-                               .Include(a => a.Addresses)
-
                                //Include Player Information
                                .Include(i => i.OtherInformation)
 
@@ -212,32 +204,34 @@ namespace NFL.Controllers
             //playerDetails.contactInformation.Faxes.RemoveAll(fx => fx.Number == null);
             //playerDetails.contactInformation.PhoneNumbers.RemoveAll(ph => ph.Number == null);
 
-            ////Include Emails
-            //List<Email> emails = _context.Email.Where(e => e.contactInformation.playerId == SinglePlayer.playerId).ToList();
-            ////Include Faxes
-            //List<Fax> faxes = _context.Fax.Where(fx => fx.contactInformation.playerId == SinglePlayer.playerId).ToList();
-            ////Include Emails
-            //List<Phone> phones = _context.Phone.Where(ph => ph.contactInformation.playerId == SinglePlayer.playerId).ToList();
+            //Include Emails
+            List<Email> emails = _context.Email.Where(e => e.contactInformation.playerId == SinglePlayer.playerId).ToList();
+            //Include Faxes
+            List<Fax> faxes = _context.Fax.Where(fx => fx.contactInformation.playerId == SinglePlayer.playerId).ToList();
+            //Include Emails
+            List<Phone> phones = _context.Phone.Where(ph => ph.contactInformation.playerId == SinglePlayer.playerId).ToList();
 
-            //SinglePlayer.contactInformation = new ContactInformation
-            //{
-            //    Emails = new List<Email>(emails),
-            //    Faxes = new List<Fax>(faxes),
-            //    PhoneNumbers = new List<Phone>(phones),
-            //};
+            SinglePlayer.contactInformation = new ContactInformation
+            {
+                Emails = new List<Email>(emails),
+                Faxes = new List<Fax>(faxes),
+                PhoneNumbers = new List<Phone>(phones),
+            };
 
 
             //Include Locations of Addresses
-            List<Address> addresses = _context.Addresses.Include(c => c.Location)
-                                      .Where(a => a.playerId == SinglePlayer.playerId).ToList();
-            SinglePlayer.Addresses = addresses;
+
+            SinglePlayer.Addresses = _context.Addresses.Include(c => c.Location)
+                                     .Join(_context.PartyAddress, add => add.Id, prt => prt.addressId, (add, prt) => new { add, prt })
+                                     .Where(p => p.prt.partyId == SinglePlayer.playerId && p.prt.party == "player")
+                                     .Select(a => a.add).ToList();
+
 
 
             //Include Main Positions of Measurments
-            List<Measurments> measurments = _context.Measurments
+            SinglePlayer.OtherInformation.Measurments = _context.Measurments
                                             .Include(p => p.mainPosition)
                                             .Where(m => m.informationId == SinglePlayer.playerId).ToList();
-            SinglePlayer.OtherInformation.Measurments = measurments;
 
 
             return SinglePlayer;
@@ -410,14 +404,23 @@ namespace NFL.Controllers
             newPlayer.OtherInformation.Educations.Add(PlayerInfo.Education);
             newPlayer.OtherInformation.Measurments.Add(PlayerInfo.Measurment);
 
+            if(Profile.Address1.Id == 0)
+                _context.Entry(Profile.Address1).State = EntityState.Added;
+
             if (newPlayer.playerId == 0)
-            {
                 _context.Entry(newPlayer).State = EntityState.Added;
-                _context.SaveChanges();
-            }
 
+            _context.SaveChanges();
+            var partyAddress = new partyAddress()
+            {
+                partyId = newPlayer.playerId,
+                addressId = Profile.Address1.Id,
+                party = "player"
+            };
 
+            _context.Entry(partyAddress).State = EntityState.Added;
 
+            _context.SaveChanges();
             return RedirectToAction("Index", "Players");
         }
 
@@ -469,7 +472,7 @@ namespace NFL.Controllers
                         _context.SaveChanges();
                         return PartialView("Details/Profile/Address", player.Addresses);
                     }
-                    else if(player.contactInformation != null)
+                    else if (player.contactInformation != null)
                     {
                         var emails = player.contactInformation.Emails ?? new List<Email>();
                         var phones = player.contactInformation.PhoneNumbers ?? new List<Phone>();
@@ -494,7 +497,7 @@ namespace NFL.Controllers
                         player.contactInformation.playerId = id;
                         return PartialView("Details/Profile/ContactInformation", player.contactInformation);
                     }
-                    else if(player.OtherInformation != null)
+                    else if (player.OtherInformation != null)
                     {
                         var Info = player.OtherInformation;
                         //_context.Information.Attach(Info);
@@ -512,7 +515,7 @@ namespace NFL.Controllers
                         }
                         else if (Info.Measurments != null)
                         {
-                            
+
                             Info.Measurments.ForEach(MGR => _context.Measurments.AddOrUpdate(MGR));
 
                             _context.SaveChanges();
@@ -524,12 +527,12 @@ namespace NFL.Controllers
                         //Info.Educations = Info.Educations ?? new List<Education_History>();
                         //Info.Measurments = Info.Measurments ?? new List<Measurments>();
                         //player.OtherInformation = Info;
-                       
-                        
+
+
                     }
                 }
 
-                return new HttpStatusCodeResult(400, ModelState.ToString());
+                return new HttpStatusCodeResult(400, "Invalid data");
 
             }
             return HttpNotFound();
@@ -539,16 +542,30 @@ namespace NFL.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var player = GetSinglePlayer(id);
+
             if (player == null)
             {
                 return HttpNotFound();
             }
 
+
+            var addresses = player.Addresses;
+            //var partyAddress = new partyAddress()
+            //{
+            //    partyId = player.playerId,
+            //    addressId = a
+            //}
+
+            var partyAddresses = _context.PartyAddress
+                .Where(prt => prt.partyId == player.playerId && prt.party == "player").ToList();
+
+            addresses.ForEach(a => _context.Addresses.Remove(a));
+            partyAddresses.ForEach(prt => _context.PartyAddress.Remove(prt));
             _context.Player.Remove(player);
             await _context.SaveChangesAsync();
 
-            return View(GetAllPlayers());
-          
+            return View("Index", GetAllPlayers());
+
         }
 
     }
@@ -556,6 +573,6 @@ namespace NFL.Controllers
     public class Positions
     {
         public int Id { get; }
-        public string Title { get;}
+        public string Title { get; }
     }
 }

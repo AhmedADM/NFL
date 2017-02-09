@@ -5,9 +5,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NFL.Models.Players_Information;
 using NFL.Models.Player.Players_Information;
+using NFL.Models.Addresses;
+using NFL.Models;
+using NFL.Models.Player;
 
-
-namespace NFL.Models.Player
+namespace NFL
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
@@ -33,6 +35,13 @@ namespace NFL.Models.Player
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Stadium>().ToTable("Stadium");
         }
 
 
@@ -67,12 +76,14 @@ namespace NFL.Models.Player
 
 
 
-
+        //partyAddress
+        public DbSet<partyAddress> PartyAddress { get; set; }
         //Stadiums
-       // public DbSet<Stadium> Stadium { get; set; }
+        public DbSet<Stadium> Stadium { get; set; }
     }
 
-    
+   
+
 
 }
 

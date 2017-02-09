@@ -1,4 +1,4 @@
-@model List<NFL.Models.Player.Address>
+@model List<NFL.Models.Addresses.Address>
 
 @{ 
     var Addresses = Model;
@@ -20,7 +20,6 @@
             </div>
             <div class="edit_field" style="display:none">
                 @Html.HiddenFor(Add => Addresses[0].Id)
-                @Html.HiddenFor(Add => Addresses[0].playerId)
                 @Html.HiddenFor(Add => Addresses[0].locationId)
                 <div class="row">
                     <div class="col-md-4">
@@ -119,7 +118,7 @@
 
 
     </dl>
-    @Html.Partial("Details/EditButtons", Addresses[0].playerId)
+    @Html.Partial("Details/EditButtons")
 </div>
 
 @section Scripts {

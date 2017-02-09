@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using NFL.Models.Players_Information;
+using NFL.Models.Addresses;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NFL.Models.Player
 {
@@ -17,7 +18,13 @@ namespace NFL.Models.Player
 
         public virtual ContactInformation contactInformation { get; set; }
 
-        public virtual List<Address> Addresses { get; set; }
+
+        //Inner join to partyAddress Table
+        public string AddressIds { get; set; }
+
+        [NotMapped]
+        public List<Address> Addresses { get; set; }
+
         public virtual Information OtherInformation { get; set; }
 
     }

@@ -67,6 +67,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ExpressiveAnnotations, Version=2.7.1.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExpressiveAnnotations.2.9.2\lib\net45\ExpressiveAnnotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExpressiveAnnotations.MvcUnobtrusive, Version=2.5.2.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExpressiveAnnotations.2.9.2\lib\net45\ExpressiveAnnotations.MvcUnobtrusive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -327,9 +335,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\PlayersController.cs" />
+    <Compile Include="Controllers\api\StadiumsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Controllers\StadiumsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -361,8 +371,49 @@
     <Compile Include="Migrations\201612310114285_Modified-Information-MethodAnnotations.Designer.cs">
       <DependentUpon>201612310114285_Modified-Information-MethodAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701120709002_ModifiedEmailValidationSelectType.cs" />
+    <Compile Include="Migrations\201701120709002_ModifiedEmailValidationSelectType.Designer.cs">
+      <DependentUpon>201701120709002_ModifiedEmailValidationSelectType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701160648209_RemovedAddressesPlayerRelation.cs" />
+    <Compile Include="Migrations\201701160648209_RemovedAddressesPlayerRelation.Designer.cs">
+      <DependentUpon>201701160648209_RemovedAddressesPlayerRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701162333317_AddStadiumTable.cs" />
+    <Compile Include="Migrations\201701162333317_AddStadiumTable.Designer.cs">
+      <DependentUpon>201701162333317_AddStadiumTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701162338195_AddPartyAddressTable.cs" />
+    <Compile Include="Migrations\201701162338195_AddPartyAddressTable.Designer.cs">
+      <DependentUpon>201701162338195_AddPartyAddressTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701180027232_AddedAddressIdsForPlayer.cs" />
+    <Compile Include="Migrations\201701180027232_AddedAddressIdsForPlayer.Designer.cs">
+      <DependentUpon>201701180027232_AddedAddressIdsForPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701180506503_UnknownChanges.cs" />
+    <Compile Include="Migrations\201701180506503_UnknownChanges.Designer.cs">
+      <DependentUpon>201701180506503_UnknownChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701250111163_addedMorePropertiesToPartyAddress.cs" />
+    <Compile Include="Migrations\201701250111163_addedMorePropertiesToPartyAddress.Designer.cs">
+      <DependentUpon>201701250111163_addedMorePropertiesToPartyAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701251802345_configuredStadiumTableName.cs" />
+    <Compile Include="Migrations\201701251802345_configuredStadiumTableName.Designer.cs">
+      <DependentUpon>201701251802345_configuredStadiumTableName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701251911148_addedNameToStadiums.cs" />
+    <Compile Include="Migrations\201701251911148_addedNameToStadiums.Designer.cs">
+      <DependentUpon>201701251911148_addedNameToStadiums.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701260451277_SetDatesInStadiumAsNullable.cs" />
+    <Compile Include="Migrations\201701260451277_SetDatesInStadiumAsNullable.Designer.cs">
+      <DependentUpon>201701260451277_SetDatesInStadiumAsNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Addresses\partyAddress.cs" />
     <Compile Include="Models\EditPlayerViewModel.cs" />
     <Compile Include="Models\ErrorMessages.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -372,8 +423,8 @@
     <Compile Include="Models\Players\Players Information\Information.cs" />
     <Compile Include="Models\Players\Players Information\MainPosition.cs" />
     <Compile Include="Models\Players\Players Information\Measurments.cs" />
-    <Compile Include="Models\Players\Profile\Address\Address.cs" />
-    <Compile Include="Models\Players\Profile\Address\Location.cs" />
+    <Compile Include="Models\Addresses\Address.cs" />
+    <Compile Include="Models\Addresses\Location.cs" />
     <Compile Include="Models\Players\Profile\Contact Information\Email.cs" />
     <Compile Include="Models\Players\Profile\Contact Information\Fax.cs" />
     <Compile Include="Models\Players\Profile\Contact Information\Phone.cs" />
@@ -433,6 +484,8 @@
     <Content Include="bower.json" />
     <None Include="Properties\PublishProfiles\NFL.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\expressive.annotations.validate.js" />
+    <Content Include="Scripts\expressive.annotations.validate.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -568,6 +621,12 @@
     <Content Include="Views\_ViewImports.cshtml" />
     <Content Include="Views\Players\Details\EditButtons.cshtml" />
     <Content Include="Views\Players\Details\Player_Information\Bio.cshtml" />
+    <Content Include="Views\Stadiums\Index.cshtml" />
+    <Content Include="Views\Stadiums\Create\New.cshtml" />
+    <Content Include="Views\Stadiums\Create\AddressForm.cshtml" />
+    <Content Include="Views\Stadiums\Details\Details.cshtml" />
+    <Content Include="Views\Stadiums\Details\Address.cshtml" />
+    <Content Include="Views\Edit\Buttons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -597,6 +656,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612310114285_Modified-Information-MethodAnnotations.resx">
       <DependentUpon>201612310114285_Modified-Information-MethodAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701120709002_ModifiedEmailValidationSelectType.resx">
+      <DependentUpon>201701120709002_ModifiedEmailValidationSelectType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701160648209_RemovedAddressesPlayerRelation.resx">
+      <DependentUpon>201701160648209_RemovedAddressesPlayerRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701162333317_AddStadiumTable.resx">
+      <DependentUpon>201701162333317_AddStadiumTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701162338195_AddPartyAddressTable.resx">
+      <DependentUpon>201701162338195_AddPartyAddressTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701180027232_AddedAddressIdsForPlayer.resx">
+      <DependentUpon>201701180027232_AddedAddressIdsForPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701180506503_UnknownChanges.resx">
+      <DependentUpon>201701180506503_UnknownChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701250111163_addedMorePropertiesToPartyAddress.resx">
+      <DependentUpon>201701250111163_addedMorePropertiesToPartyAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701251802345_configuredStadiumTableName.resx">
+      <DependentUpon>201701251802345_configuredStadiumTableName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701251911148_addedNameToStadiums.resx">
+      <DependentUpon>201701251911148_addedNameToStadiums.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701260451277_SetDatesInStadiumAsNullable.resx">
+      <DependentUpon>201701260451277_SetDatesInStadiumAsNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

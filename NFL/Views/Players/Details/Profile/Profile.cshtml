@@ -6,10 +6,12 @@
 
 <div class="container" id="Profile">
     <form>
+
         @Html.Partial("Details/Profile/PersonalInformation", Model.personalInformation)
     </form>
        
-    <form action="/Players/Update" id="ADD" >
+    <form  id="ADD" >
+        @Html.HiddenFor(p => p.playerId)
         @Html.Partial("Details/Profile/Address", Model.Addresses)
     </form> 
 

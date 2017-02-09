@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using NFL.Models.Player;
 using NFL.Models.Special_Validations;
+using ExpressiveAnnotations.Attributes;
 
 namespace NFL.Models
 {
@@ -20,12 +21,19 @@ namespace NFL.Models
 
 
         //[EmailValidation]
-        [Required(ErrorMessage = "Please select Type")]
+        [RequiredIf("email != null", ErrorMessage = ErrorMessages.SelectEmailType)]
         public string Type { get; set; }
 
 
         //public int contactInformationId { get; set; }
 
         public virtual ContactInformation contactInformation { get; set; }
+
+       
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!String.IsNullOrEmpty(Type) && String.IsNullOrEmpty(Type))
+                yield return new ValidationResult(ErrorMessages.SelectEmailType);
+        }
     }
 }

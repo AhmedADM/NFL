@@ -9,6 +9,9 @@
     <li><a href="#">Player Information</a></li>
 </ul>
 
+<input type="hidden" id="URL" name="URL" value="/Players/Update/@Model.playerId" />
+
+
 @Html.Partial("Details/Profile/Profile")
 @Html.Partial("Details/Player_Information/PlayerInformation", Model.OtherInformation)
 @Html.HiddenFor(p => p.playerId)

@@ -1,14 +1,10 @@
-﻿using System;
+﻿using NFL.Models.Player;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using NFL.Models.Player;
-using NFL.Models.Players_Information;
 
-namespace NFL.Models
+
+namespace NFL.Models.Addresses
 {
     [Serializable]
     public class Location

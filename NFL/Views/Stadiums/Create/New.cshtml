@@ -1,0 +1,53 @@
+﻿@model NFL.Models.Stadium
+
+
+<div class="container">
+
+    <h4><b>New Stadium</b></h4>
+    <hr />
+
+     <form action="Create">
+         @*Name*@
+         <div class="form-group">
+             @Html.LabelFor(s => s.Names)
+             @Html.TextBoxFor(s => s.Names, new { @class = "form-control" })
+             @Html.ValidationMessageFor(s => s.Names, "", new { @class = "text-danger" })
+         </div>
+
+         @*Date Established*@
+         <div class="form-group">
+             @Html.LabelFor(s => s.DateEstablished)
+             @Html.TextBoxFor(s => s.DateEstablished, new { @class = "form-control" })
+             @Html.ValidationMessageFor(s => s.DateEstablished, "", new { @class = "text-danger" })
+         </div>
+
+
+         @*Capacity*@
+         <div class="form-group">
+             @Html.LabelFor(s => s.Capacity)
+             @Html.TextBoxFor(s => s.Capacity, new { @class = "form-control", @type = "number" })
+             @Html.ValidationMessageFor(s => s.Capacity, "", new { @class = "text-danger" })
+         </div>
+
+
+
+         <br />
+         @*Address*@
+         @Html.Partial("Create/AddressForm")
+
+
+         <div class="pull-right">
+             <button type="submit" class="btn btn-info">Create</button>
+         </div>
+     </form>
+
+</div> @*<div class="container"> ENDS*@
+
+
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    <script src="~/Scripts/AutoPupolates.js"></script>
+   
+
+}

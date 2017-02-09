@@ -1,19 +1,15 @@
 ﻿$(document).ready(function () {
     var OriginalOptions;
-    //alert($(("input[id*='Date']")).length);
 
-
+    loadDatePicker();
 
     //AutoPupolate();
-    //when the user clicks off of the zip field:
+    //when the user changes off of the zip field:
     $(document).eq(0).on("change", "input[id*='ZipCode']", function (e) {
         e.preventDefault();
         AutoPupolate();
     });
 
-    //$("form#ADD").addEventListener("reset", function () {
-    //    AutoPupolate();
-    //});
    
 });
 function loadDatePicker() {

@@ -3,10 +3,6 @@
 <h4><b>Address</b></h4>
 <hr />
 <div class="container">
-
-  
-
-
     <div class="input-group-md">
         <div class="row">
             <div class="col-md-7">
@@ -26,14 +22,14 @@
                 @Html.ValidationMessageFor(p => p.Address1.Location.ZipCode, "", new { @class = "text-danger" })
             </div>
             @*<div class="col-md-4">
-               
-            </div>*@
+
+                </div>*@
             <div class="col-md-4">
-                
+
                 @Html.LabelFor(p => p.Address1.Location.City)
                 @Html.DropDownListFor(p => p.Address1.Location.City, (Model.Address1.Location.City != null) ?
        new SelectList(new[] { Model.Address1.Location.City }) : new SelectList(new[] { "" }), new { @class = "form-control" })
-       
+
                 @Html.ValidationMessageFor(p => p.Address1.Location.City, "", new { @class = "text-danger" })
             </div>
 
@@ -41,7 +37,7 @@
 
             <div class="col-md-2" style="margin-left:-70px;">
                 @Html.LabelFor(p => p.Address1.Location.State)
-               @Html.TextBoxFor(p => p.Address1.Location.State,new { @class = "form-control" } )
+                @Html.TextBoxFor(p => p.Address1.Location.State, new { @class = "form-control" })
 
 
                 @Html.ValidationMessageFor(p => p.Address1.Location.State, "", new { @class = "text-danger" })
@@ -57,7 +53,7 @@
 
 
 
-        @*@Html.HiddenFor(s => s.States)*@
+        @*@Html.HiddenFor(p => p.States)*@
         @Html.HiddenFor(p => p.Address1.Location.StateName)
         @Html.HiddenFor(p => p.Address1.Location.County)
         @Html.HiddenFor(p => p.Address1.Location.lat)
@@ -70,5 +66,5 @@
 @section Scripts {
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 
-  
+
 }

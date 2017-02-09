@@ -24,5 +24,10 @@ namespace NFL.Models
 
         //Player Not found
         public const string PlayerNotFound = "Player with Id = playerId not found in our database";
+
+
+        //Insert Stadium name
+        //public const string NoStadiumName = "Please insert stadium name";
+        public const string NotCorrectStadiumName = "Stadium name can not be empty, it should contain upper/lower case letters [a-z], spaces, and maybe '-' character.";
     }
 }

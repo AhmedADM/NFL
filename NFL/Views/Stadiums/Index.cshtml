@@ -1,0 +1,90 @@
+@model IEnumerable<NFL.Models.Stadium>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Stadiums List</h2>
+
+<p>
+    <a class="btn btn-info" href="Stadiums/New">New Stadium</a>
+</p>
+
+    @if (!Model.Any())
+    {
+        <h4 class="text-danger">No Stadiums in database, click <a href="Stadiums/New">here</a> to insert stadium(s)</h4>
+    }
+    else
+    {
+        <table class="table" id="STADIUMS">
+            <thead>
+                <tr>
+                    <th>
+                       Name
+                    </th>
+                    <th>
+                       Location
+                    </th>
+                    <th>
+                       Capacity
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var stadium in Model)
+                {
+                    var StadiumNames = stadium.Names.Split(new char[] { ',' });
+                    var StadiumName = StadiumNames.LastOrDefault();
+                    <tr>
+
+                        <td>
+                            <a href="Stadiums/Details/@stadium.Id" >
+                                @Html.DisplayFor(st => StadiumName)
+                            </a>
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(st => stadium.Address.Location.City), @Html.DisplayFor(st => stadium.Address.Location.State)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(st => stadium.Capacity)
+                        </td>
+
+                        <td>
+                            <a class="btn btn-danger js-delete"  id="@stadium.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#STADIUMS").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this stadium?", function (result) {
+
+                    if (result) {
+
+                        $.ajax({
+                            url: "/Stadiums/Delete/" + button.attr("id"),
+                            method: "DELETE",
+
+                            success: function () {
+                                $("#STADIUMS").row(button.parent("tr")).remove().draw();
+                            }
+
+                        });
+                    }
+
+                });
+            });
+
+
+        });
+    </script>
+}
+        

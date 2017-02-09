@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using NFL.Models.Players_Information;
 using NFL.Models.Special_Validations;
+using NFL.Models.Addresses;
 
 namespace NFL.Models.Player
 {

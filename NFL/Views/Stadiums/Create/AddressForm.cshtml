@@ -1,0 +1,75 @@
+@model NFL.Models.Stadium
+
+
+@{ 
+    var Address = Model.Address;
+}
+
+<h4><b>Address</b></h4>
+<hr />
+<div class="container">
+    <div class="input-group-md">
+        <div class="row">
+            <div class="col-md-7">
+                @Html.LabelFor(s => Address.Street)
+                @Html.TextBoxFor(s => Address.Street, new { @class = "form-control" })
+            </div>
+            <div class="col-md-5">
+                @Html.ValidationMessageFor(s => Address.Street, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+
+
+            <div class="col-md-4">
+                @Html.LabelFor(s => Address.Location.ZipCode)
+                @Html.TextBoxFor(s => Address.Location.ZipCode, new { @class = "form-control", @maxlength = "5" })
+                @Html.ValidationMessageFor(s => Address.Location.ZipCode, "", new { @class = "text-danger" })
+            </div>
+            @*<div class="col-md-4">
+
+                </div>*@
+            <div class="col-md-4">
+
+                @Html.LabelFor(s => Address.Location.City)
+                @Html.DropDownListFor(s => Address.Location.City, (Address.Location.City != null) ?
+       new SelectList(new[] { Address.Location.City }) : new SelectList(new[] { "" }), new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(s => Address.Location.City, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <div class="col-md-2" style="margin-left:-70px;">
+                @Html.LabelFor(s => Address.Location.State)
+                @Html.TextBoxFor(s => Address.Location.State, new { @class = "form-control" })
+
+
+                @Html.ValidationMessageFor(s => Address.Location.State, "", new { @class = "text-danger" })
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+        @*@Html.HiddenFor(s => Address.States)*@
+        @Html.HiddenFor(s => Address.Location.StateName)
+        @Html.HiddenFor(s => Address.Location.County)
+        @Html.HiddenFor(s => Address.Location.lat)
+        @Html.HiddenFor(s => Address.Location.lng)
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+
+
+}
