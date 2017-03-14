@@ -488,6 +488,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-NFL-20161220065143.mdf" />
+    <Content Include="App_Data\aspnet-NFL-20161220065143_log.ldf">
+      <DependentUpon>aspnet-NFL-20161220065143.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -686,7 +690,6 @@
     <Content Include="Views\Staffs\Details\Experience\WorkExperience.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Employees\" />
     <Folder Include="Views\Staffs\Create\" />
   </ItemGroup>
