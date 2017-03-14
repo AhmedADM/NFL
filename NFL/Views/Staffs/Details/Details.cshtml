@@ -1,0 +1,112 @@
+@model NFL.Models.Employees.Employee
+
+@{
+    ViewData["Title"] = "Details";
+
+}
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    <li class="active"><a href="#">Profile</a></li>
+    <li><a href="#">Experience</a></li>
+</ul>
+
+<input type="hidden" id="URL" name="URL" value="/Staffs/Update/@Model.Id" />
+
+
+@{ 
+     Html.RenderPartial("Details/Profile/Profile");
+}
+
+@{
+    var WorkExperience = Model.WorkExperience;
+    Html.RenderPartial("Details/Experience/Experience", WorkExperience);
+    Html.HiddenFor(s => s.Id);
+}
+
+
+
+@section Scripts {
+    <script src="~/Scripts/AutoPupolates.js"></script>
+    <script src="~/Scripts/Edit.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //Show/hide Profile and Experience tabs
+            var profile = $("div#Profile").show();
+            var experience = $("div#Experiences").hide();
+
+
+            $("li").click(function (index) {
+                var Selected = $(this);
+                Selected.addClass("active");
+                Selected.siblings().removeClass("active");
+
+                if (Selected.find("a").text() === "Profile") {
+                    experience.hide();
+                    profile.fadeIn();
+
+                } else if (Selected.find("a").text() === "Experience") {
+                    profile.hide();
+                    experience.fadeIn();
+
+                }
+            });
+           fixContactFields();
+
+            //fixExpFields();
+
+        });
+
+
+
+        function fixContactFields() {
+
+            //Select options set to default values for contact information types
+            var selections = $('select');
+
+            selections.each(function (index) {
+                var selected = $(this).attr('value');
+                //$(this).children().contains(selected).attr('selected', true);
+                $(this).children().each(function (i) {
+                    if ($(this).text() == selected || $(this).val() == selected)
+                        $(this).attr('selected', true);
+                });
+            });
+
+            var contactInputs = $('form#Contact').find($('input:not(.required_data),select'));
+            var contactInformation = 'contactInformation';
+            contactInputs.each(function (index) {
+
+                $(this).attr('id', contactInformation + '_' + $(this).attr('id'));
+                $(this).attr('name', contactInformation + '.' + $(this).attr('name'));
+                //alert($(this).attr('id'));
+            });
+      
+        }
+
+        function fixExpFields() {
+
+            //Select options set to default values for contact information types
+            var selections = $('select');
+
+            selections.each(function (index) {
+                var selected = $(this).attr('value');
+                //$(this).children().contains(selected).attr('selected', true);
+                $(this).children().each(function (i) {
+                    if ($(this).text() == selected || $(this).val() == selected)
+                        $(this).attr('selected', true);
+                });
+            });
+
+            var expInputs = $('form#Experience').find($('input:not(.required_data),select'));
+            var WorkExperience = 'WorkExperience';
+            expInputs.each(function (index) {
+
+                $(this).attr('id', WorkExperience + '_' + $(this).attr('id'));
+                $(this).attr('name', WorkExperience + '.' + $(this).attr('name'));
+                //alert($(this).attr('id'));
+            });
+
+        }
+    </script>
+
+}

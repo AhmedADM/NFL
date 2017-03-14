@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NFL.Models.Player;
 using NFL.Models;
+using NFL.Models.Profile;
 
 namespace NFL.Models.Special_Validations
 {

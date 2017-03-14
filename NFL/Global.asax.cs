@@ -24,5 +24,7 @@ namespace NFL
     //        GlobalConfiguration.Configuration.Formatters
     //            .Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
         }
+
+
     }
 }

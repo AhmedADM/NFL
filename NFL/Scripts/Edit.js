@@ -1,13 +1,7 @@
 ﻿$(document).ready(function () {
     loadDatePicker();
     $.validator.unobtrusive.parse($('input'));
-    //Show Player's Details Including personal Information and Player Information
-    var profile = $("div#Profile").show();
 
-    var playerId = $("#playerId").val();
-
-
-    var playerInfo = $("div#PlayerInformation").hide();
 
 
     //Original Labels
@@ -26,21 +20,7 @@
     var SelectsOptions = [];
 
 
-    $("li").click(function (index) {
-        var Selected = $(this);
-        Selected.addClass("active");
-        Selected.siblings().removeClass("active");
-
-        if (Selected.find("a").text() == "Profile") {
-            playerInfo.hide();
-            profile.fadeIn();
-
-        } else if (Selected.find("a").text() == "Player Information") {
-            profile.hide();
-            playerInfo.fadeIn();
-
-        }
-    });
+   
 
     var form;
     var button_group = $("div.ForProfile").find("div.pull-right");
@@ -61,19 +41,11 @@
         edit_button.css("display", "none");
         cancelSaveButton.css("display", "inline");
         saveButton.css("display", "inline");
-        ////DatePicker for Birth date
-        //var BirthDate = $("#personalInformation_BirthDate").datepicker({
-        //    format: 'dd M yyyy',
-        //    autoclose: 'true',
-        //    todayHighlight: 'true',
-        //    maxViewMode: 'decade',
-        //    orientation: "bottom auto"
-        //}).data('datepicker');
+      
         originalLabels = [];
         originalEntries = [];
 
         form = $(this).closest("form");
-
         details_section = form.find("dl.dl-horizontal");
         replacementLabels = details_section.find("input#replacementLabels").val().split(',');
     
@@ -117,6 +89,8 @@
         saveButton.css("display", "none");
 
   
+        form = $(this).closest("form");
+        details_section = form.find("dl.dl-horizontal");
 
         originalLabels = details_section.find("input#originalLabels").val().split(',');
         details_section.find("input#originalLabels").val('');

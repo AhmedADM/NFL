@@ -1,0 +1,135 @@
+﻿@model IEnumerable<NFL.Models.Staff.Staff>
+
+@{
+    ViewData["Title"] = "Index";
+    var staff = Model.FirstOrDefault();
+    var FirstName = "";
+    var LastName = "";
+
+}
+
+
+<div class="container">
+
+
+    <p>
+        <a class="btn btn-info" href="Staff/New">New Staff</a>
+    </p>
+
+    <div class="panel panel-default">
+        <div class="panel-heading text-center"><h2>Staff</h2></div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"><h4>Front Office</h4></div>
+                            <div class="panel-body">
+
+                                <ul>
+                                    @*CEO*@
+                                    <li>
+                                        @{
+                                            FirstName = staff.frontOffice.CEO.personalInformation.FirstName;
+                                            LastName = staff.frontOffice.CEO.personalInformation.LastName;
+
+                                        }
+                                        <b>CEO : </b><a href="Staffs/Details/@staff.frontOffice.CEO.Id">@FirstName @LastName</a>
+                                    </li>
+
+                                    @*Owner CEO*@
+                                    <li>
+                                        @{
+                                            FirstName = staff.frontOffice.OwnerCEO.personalInformation.FirstName;
+                                            LastName = staff.frontOffice.OwnerCEO.personalInformation.LastName;
+
+                                        }
+                                        <b>Owner CEO : </b><a href="Staffs/Details/@staff.frontOffice.OwnerCEO.Id">@FirstName @LastName</a>
+                                    </li>
+
+                                    @*Precident*@
+                                    <li>
+                                        @{
+                                            FirstName = staff.frontOffice.Precident.personalInformation.FirstName;
+                                            LastName = staff.frontOffice.Precident.personalInformation.LastName;
+
+                                        }
+                                        <b>Precident : </b><a href="Staffs/Details/@staff.frontOffice.Precident.Id">@FirstName @LastName</a>
+                                    </li>
+
+                                    @*Special Assistence*@
+                                    <li>
+                                        @{
+                                            FirstName = staff.frontOffice.SpecialAssistence.personalInformation.FirstName;
+                                            LastName = staff.frontOffice.SpecialAssistence.personalInformation.LastName;
+
+                                        }
+                                        <b>Special Assistence : </b><a href="Staffs/Details/@staff.frontOffice.SpecialAssistence.Id">@FirstName @LastName</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="panel panel-success">
+
+
+                            <div class="panel-heading"><h4>Offensive Coaches</h4></div>
+                            <div class="panel-body">
+
+                                <ul>
+
+                                    @*Offensive Coordinator*@
+                                    <li>
+                                        @{
+                                            FirstName = staff.offensiveCoaches.OffensiveCoordinator.personalInformation.FirstName;
+                                            LastName = staff.offensiveCoaches.OffensiveCoordinator.personalInformation.LastName;
+
+                                        }
+                                        <b>Offensive Coordinator : </b><a href="Staffs/Details/@staff.offensiveCoaches.OffensiveCoordinator.Id">@FirstName @LastName</a>
+                                    </li>
+
+
+
+                                    @*Quarterback Coach*@
+                                    <li>
+                                        @{
+                                            FirstName = staff.offensiveCoaches.QuarterbackCoach.personalInformation.FirstName;
+                                            LastName = staff.offensiveCoaches.QuarterbackCoach.personalInformation.LastName;
+
+                                        }
+                                        <b>Quarterback Coach : </b><a href="Staffs/Details/@staff.offensiveCoaches.QuarterbackCoach.Id">@FirstName @LastName</a>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-group">
+
+                        <div class="panel panel-warning">
+                            <div class="panel-heading"><h4>Deffensive Coaches</h4></div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading"><h4>Head Coach(s)</h4></div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

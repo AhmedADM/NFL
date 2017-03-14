@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using NFL.Models.Players_Information;
 using NFL.Models.Special_Validations;
 using NFL.Models.Addresses;
+using NFL.Models.Profile;
 
 namespace NFL.Models.Player
 {

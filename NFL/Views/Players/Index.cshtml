@@ -74,7 +74,8 @@
                             method: "DELETE",
 
                             success: function () {
-                                $("#PLAYERS").row(button.parent("tr")).remove().draw();
+
+                                button.row(button.parent("tr")).remove().draw();
                             }
 
                         });

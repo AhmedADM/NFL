@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using NFL.Models.Player;
 using NFL.Models.Special_Validations;
+using ExpressiveAnnotations.Attributes;
+using NFL.Models.Profile;
 
 namespace NFL.Models
 {
     [Serializable]
-    public class Fax
+    public class Email
     {
-        [XmlIgnore]
         public int Id { get; set; }
 
-        [RegularExpression("\\+[0-9]{1,3}\\([0-9]{3}\\)[0-9]{7}", ErrorMessage = "Invalid fax number")]
-        public string Number { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string email { get; set; }
 
 
-        [FaxValidation]
+        //[EmailValidation]
+        [RequiredIf("email != null", ErrorMessage = ErrorMessages.SelectEmailType)]
         public string Type { get; set; }
 
 
-        //public int contactInformationId { get; set; }
+        public int contactInformationId { get; set; }
 
         public virtual ContactInformation contactInformation { get; set; }
     }

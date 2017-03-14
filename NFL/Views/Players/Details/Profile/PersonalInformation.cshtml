@@ -1,5 +1,5 @@
 
-@model NFL.Models.Player.PersonalInformation
+@model NFL.Models.Profile.PersonalInformation
 
 @{ 
     var personalInformation = Model;
@@ -26,7 +26,9 @@
                     @Html.DisplayFor(p => personalInformation.LastName)
                 </div>
                 <div class="edit_field" style="display:none">
-                    @Html.HiddenFor(p => personalInformation.playerId)
+                    @Html.HiddenFor(p => personalInformation.Id)
+                    @Html.HiddenFor(p => personalInformation.personId)
+                    @Html.HiddenFor(p => personalInformation.Person)
                     <div class="row">
                         <div class="col-md-4">
                             @Html.TextBoxFor(p => personalInformation.FirstName, new { @class = "form-control " })
@@ -128,7 +130,7 @@
 
 
         </dl>
-        @Html.Partial("Details/EditButtons", Model.playerId)
+        @Html.Partial("Details/EditButtons", Model.personId)
     </div>
 
 

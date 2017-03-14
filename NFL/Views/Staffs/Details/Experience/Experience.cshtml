@@ -1,0 +1,175 @@
+﻿@model List<NFL.Models.Experiences.Experience>
+
+@{
+    var WorkExperience = Model;
+    var ID = "";
+    var NAME = "";
+}
+
+<form id="Experience">
+    <div class="panel-group" id="Experiences">
+
+
+        @for (var index = 0; index < Model.Count; index++)
+        {
+
+            ID = "WorkExperience_" + index + "__";
+            NAME = "WorkExperience[" + index + "].";
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title pull-left">
+                        <a data-toggle="collapse" data-parent="#Experiences" href="#@index">
+                            @Html.DisplayFor(exp => WorkExperience[index].Role)
+                        </a>
+                    </div>
+                    <div class="panel-title pull-right">
+                        @{
+                            string dateF = Model[index].DateFrom.ToShortDateString();
+                            string dateT = (Model[index].DateTo == null) ? "Present" : Model[index].DateTo.ToString();
+                        }
+                        @dateF - @dateT
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="@index" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+
+                        @Html.HiddenFor(exp => exp[index].Id, new { @id = ID + "Id", Name = NAME + "Id" })
+                        <dl class="dl-horizontal">
+
+                            @*Displaying Organization STARTS*@
+                            <dt>
+                                Organization :
+                            </dt>
+                            <dd>
+
+                                <div class="entry">
+                                    @Html.DisplayFor(exp => WorkExperience[index].Organization)
+                                </div>
+                                <div class="edit_field" style="display:none">
+                                    @* @Html.HiddenFor(exp => WorkExperience[index].Id)*@
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(exp => exp[index].Organization,
+                                               new { @class = "form-control ", @id = ID + "Organization", Name = NAME + "Organization" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(exp => WorkExperience[index].Organization, "", new
+                                       {
+                                           @class = "text-danger"
+                                                ,
+                                           @id = ID + "Organization",
+                                           Name = NAME + "Organization"
+                                       })
+                                        </div>
+                                    </div>
+                                </div>
+                            </dd>
+                            @*Displaying Organization ENDS*@
+
+                            @*Displaying Role STARTS*@
+                            <dt>
+                                @Html.DisplayNameFor(exp => WorkExperience[index].Role) :
+                            </dt>
+                            <dd>
+                                <div class="entry">
+                                    @Html.DisplayFor(exp => WorkExperience[index].Role)
+                                </div>
+                                <div class="edit_field" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(exp => exp[index].Role, new { @class = "form-control", @id = ID + "Role", Name = NAME + "Role" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(exp => exp[index].Role, "", new { @class = "text-danger", @id = ID + "Role", Name = NAME + "Role" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </dd>
+                            @*Displaying Role ENDS*@
+
+
+                            @*Displaying Date STARTS*@
+                            <dt>
+                                Date(s) :
+                            </dt>
+                            <dd>
+                                <div class="entry">
+                                    @dateF - @dateT
+                                </div>
+
+                                <div class="edit_field" style="display:none">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(exp => exp[index].DateFrom, new { @class = "form-control ", @id = ID + "DateFrom", Name = NAME + "DateFrom" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(exp => exp[index].DateTo, new { @class = "form-control ", @id = ID + "DateTo", Name = NAME + "DateTo" })
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(exp => WorkExperience[index].DateFrom, "", new { @class = "text-danger", @id = ID + "DateFrom", Name = NAME + "DateFrom" })
+                                    @Html.ValidationMessageFor(exp => WorkExperience[index].DateTo, "", new { @class = "text-danger", @id = ID + "DateTo", Name = NAME + "DateTo" })
+                                </div>
+                            </dd>
+                            @*Displaying Date ENDS*@
+
+
+
+                            @*Displaying Description STARTS*@
+                            <dt>
+                                @Html.DisplayNameFor(exp => exp[index].Description) :
+                            </dt>
+                            <dd>
+                                <div class="entry">
+                                    @Html.DisplayFor(exp => exp[index].Description)
+                                </div>
+
+                                <div class="edit_field" style="display:none;">
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            @Html.TextAreaFor(exp => exp[index].Description, new { @class = "form-control", @id = ID + "Description", Name = NAME + "Description" })
+
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.ValidationMessageFor(exp => exp[index].Description, "", new { @class = "text-danger", @id = ID + "Description", Name = NAME + "Description" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </dd>
+                            @*Displaying Description ENDS*@
+
+                            <input class="required_data" type="hidden" id="replacementLabels" name="replacementLabels"
+                                   value="Organization : ,Role : ,Date(s) : ,Description : " />
+                            <input class="required_data" type="hidden" id="originalLabels" name="originalLabels"
+                                   value="" />
+
+
+                        </dl>
+                        @Html.Partial("Details/EditButtons", Model[index].Id)
+
+
+                    </div>
+                </div>
+            </div>
+
+                            }
+
+
+    </div>
+</form>
+
+
+<script>
+
+    fixFields();
+</script>

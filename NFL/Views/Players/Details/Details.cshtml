@@ -12,20 +12,49 @@
 <input type="hidden" id="URL" name="URL" value="/Players/Update/@Model.playerId" />
 
 
-@Html.Partial("Details/Profile/Profile")
-@Html.Partial("Details/Player_Information/PlayerInformation", Model.OtherInformation)
-@Html.HiddenFor(p => p.playerId)
-
+<div class="container">
+    @Html.Partial("Details/Profile/Profile")
+    @Html.Partial("Details/Player_Information/PlayerInformation", Model.OtherInformation)
+    @Html.HiddenFor(p => p.playerId)
+</div>
 
 @section Scripts {
     <script src="~/Scripts/AutoPupolates.js"></script>
     <script src="~/Scripts/Edit.js"></script>
     <script>
         $(document).ready(function () {
+            //Show/hide Profile and Player Information tabs
+            var profile = $("div#Profile").show();
+            var playerInfo = $("div#PlayerInformation").hide();
+
+            $("li").click(function (index) {
+                var Selected = $(this);
+                Selected.addClass("active");
+                Selected.siblings().removeClass("active");
+
+                if (Selected.find("a").text() === "Profile") {
+                    playerInfo.hide();
+                    profile.fadeIn();
+
+                } else if (Selected.find("a").text() === "Player Information") {
+                    profile.hide();
+                    playerInfo.fadeIn();
+
+                }
+            });
+            
+
+            fixContactsFields();
+          
+        });
+
+
+
+        function fixContactsFields() {
 
             //Select options set to default values for contact information types
             var selections = $('select');
-            
+
             selections.each(function (index) {
                 var selected = $(this).attr('value');
                 //$(this).children().contains(selected).attr('selected', true);
@@ -34,7 +63,16 @@
                         $(this).attr('selected', true);
                 });
             });
-        });
+
+            var inputs = $('form#Contact').find($('input:not(.required_data),select'));
+            var contactInformation = 'contactInformation';
+            inputs.each(function (index) {
+
+                $(this).attr('id', contactInformation + '_' + $(this).attr('id'));
+                $(this).attr('name', contactInformation + '.' + $(this).attr('name'));
+                //alert($(this).attr('id'));
+            });
+        }
     </script>
 
 }

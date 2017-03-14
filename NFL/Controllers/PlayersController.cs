@@ -13,6 +13,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Data.Entity.Migrations;
 using NFL.Models.Addresses;
+using NFL.Models.Profile;
 
 namespace NFL.Controllers
 {
@@ -150,23 +151,26 @@ namespace NFL.Controllers
         public List<Player> GetAllPlayers()
         {
             var players = _context.Player
-                          .Include(p => p.personalInformation)
                           .Include(p => p.OtherInformation.Measurments)
                           .OrderBy(p => p.playerId)
                           .ToList();
 
-            
+
             //Include Main Positions of Measurments
 
-       
+
             var length = players.Count;
             for (int index = 0; index < length; index++)
             {
                 var player = players.ElementAt(index);
-                List<Measurments> measurments = _context.Measurments
-                                            .Include(p => p.mainPosition)
-                                            .Where(m => m.informationId == player.playerId).ToList();
-                player.OtherInformation.Measurments = measurments;
+
+                player.personalInformation = _context.PersonalInformation
+                                            .SingleOrDefault(cont => cont.personId == player.playerId && cont.Person == "player");
+
+
+                player.OtherInformation.Measurments = _context.Measurments
+                                                    .Include(p => p.mainPosition)
+                                                    .Where(m => m.informationId == player.playerId).ToList();
 
                 players.RemoveAt(index);
                 players.Insert(index, player);
@@ -180,16 +184,24 @@ namespace NFL.Controllers
         [HttpGet]
         public Player GetSinglePlayer(int playerId)
         {
-            var SinglePlayer = _context.Player
-                               //Include Personal Information + Contact Information
-                               .Include(p => p.personalInformation)
 
-                               .Include(c => c.contactInformation)
+            var SinglePlayer = new Player
+            {
+                personalInformation = new PersonalInformation(),
+                Addresses = new List<Address>(),
+                contactInformation = new ContactInformation(),
+                OtherInformation = new Information()
+                {
+                    Educations = new List<Education_History>(),
+                    Measurments = new List<Measurments>(),
+                }
+            };
 
 
+            SinglePlayer =      _context.Player
+                              
                                //Include Player Information
                                .Include(i => i.OtherInformation)
-
 
                                //Include both Education and Measurments
                                .Include(e => e.OtherInformation.Educations)
@@ -198,25 +210,16 @@ namespace NFL.Controllers
                                .SingleOrDefault(p => p.playerId == playerId);
 
 
-            //clear Null contact information
+            SinglePlayer.personalInformation = _context.PersonalInformation
+                                            .SingleOrDefault(cont => cont.personId == SinglePlayer.playerId && cont.Person == "player");
 
-            //playerDetails.contactInformation.Emails.RemoveAll(em => em.email == null);
-            //playerDetails.contactInformation.Faxes.RemoveAll(fx => fx.Number == null);
-            //playerDetails.contactInformation.PhoneNumbers.RemoveAll(ph => ph.Number == null);
-
-            //Include Emails
-            List<Email> emails = _context.Email.Where(e => e.contactInformation.playerId == SinglePlayer.playerId).ToList();
-            //Include Faxes
-            List<Fax> faxes = _context.Fax.Where(fx => fx.contactInformation.playerId == SinglePlayer.playerId).ToList();
-            //Include Emails
-            List<Phone> phones = _context.Phone.Where(ph => ph.contactInformation.playerId == SinglePlayer.playerId).ToList();
-
-            SinglePlayer.contactInformation = new ContactInformation
-            {
-                Emails = new List<Email>(emails),
-                Faxes = new List<Fax>(faxes),
-                PhoneNumbers = new List<Phone>(phones),
-            };
+            SinglePlayer.contactInformation = _context.ContactInformation
+                                            .Include(cont => cont.Emails)
+                                            .Include(cont => cont.Faxes)
+                                            .Include(cont => cont.PhoneNumbers)
+                                            .SingleOrDefault(cont => cont.personId == SinglePlayer.playerId && cont.Person == "player");
+                                            //.Join(_context.Player, con => con.Id, p => p.playerId, (con, p) => new { con, p })
+                                            //.SingleOrDefault(pl => pl.p.playerId == pl.con.personId && pl.con.Person == "player");
 
 
             //Include Locations of Addresses
@@ -374,41 +377,54 @@ namespace NFL.Controllers
             TempData.Remove("Profile");
 
             //Instanciate a new player then insert it to the database
-            var newPlayer = new Player()
+
+            var newPlayer = new Player
             {
-                personalInformation = Profile.personalInformation,
+                personalInformation = new PersonalInformation(),
+                contactInformation = new ContactInformation(),
                 Addresses = new List<Address>(),
-
-
                 OtherInformation = new Information()
                 {
                     Bio = PlayerInfo.Bio,
                     Educations = new List<Education_History>(),
-                    Measurments = new List<Measurments>()
+                    Measurments = new List<Measurments>(),
                 }
             };
-            newPlayer.Addresses.Add(Profile.Address1);
-
-
-            //Add Contact Information
 
             var contact = new ContactInformation()
             {
                 Emails = Profile.Emails.ToList(),
-                Faxes = Profile.Faxes.ToList(),
-                PhoneNumbers = Profile.Phones.ToList()
+                PhoneNumbers = Profile.Phones.ToList(),
+                Faxes = Profile.Faxes.ToList()
             };
-            newPlayer.contactInformation = contact;
+          
 
             //Add Education and Measurments
             newPlayer.OtherInformation.Educations.Add(PlayerInfo.Education);
             newPlayer.OtherInformation.Measurments.Add(PlayerInfo.Measurment);
 
-            if(Profile.Address1.Id == 0)
+            if (Profile.Address1.Id == 0)
                 _context.Entry(Profile.Address1).State = EntityState.Added;
 
             if (newPlayer.playerId == 0)
                 _context.Entry(newPlayer).State = EntityState.Added;
+
+            _context.SaveChanges();
+
+            Profile.personalInformation.personId = newPlayer.playerId;
+            Profile.personalInformation.Person = "player";
+
+            contact.personId = newPlayer.playerId;
+            contact.Person = "player";
+
+            if (Profile.personalInformation.Id == 0)
+                _context.Entry(Profile.personalInformation).State = EntityState.Added;
+
+            if(contact.Id == 0)
+                _context.Entry(contact).State = EntityState.Added;
+
+
+           
 
             _context.SaveChanges();
             var partyAddress = new partyAddress()
@@ -494,7 +510,7 @@ namespace NFL.Controllers
                         };
 
                         _context.SaveChanges();
-                        player.contactInformation.playerId = id;
+            
                         return PartialView("Details/Profile/ContactInformation", player.contactInformation);
                     }
                     else if (player.OtherInformation != null)
@@ -561,6 +577,9 @@ namespace NFL.Controllers
 
             addresses.ForEach(a => _context.Addresses.Remove(a));
             partyAddresses.ForEach(prt => _context.PartyAddress.Remove(prt));
+
+            _context.PersonalInformation.Remove(player.personalInformation);
+            _context.ContactInformation.Remove(player.contactInformation);
             _context.Player.Remove(player);
             await _context.SaveChangesAsync();
 

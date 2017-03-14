@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 using NFL.Models.Player;
 using NFL.Models.Players_Information;
 
-namespace NFL.Models.Player
+namespace NFL.Models.Profile
 {
     public class ContactInformation
     {
-      
-        [Key, ForeignKey("Player")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
 
-        public int playerId { get; set; }
-        public  Player Player { get; set; }
+        public int Id { get; set; }
 
+
+        public int personId { get; set; }
+        public string Person { get; set; }
 
         public virtual List<Email> Emails { get; set; }
         public virtual List<Phone> PhoneNumbers { get; set; }

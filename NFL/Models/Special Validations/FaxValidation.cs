@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using NFL.Models;
+using NFL.Models.Profile;
 
 namespace NFL.Models.Special_Validations
 {

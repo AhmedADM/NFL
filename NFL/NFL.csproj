@@ -336,10 +336,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\PlayersController.cs" />
     <Compile Include="Controllers\api\StadiumsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\StadiumsController.cs" />
+    <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -411,25 +413,67 @@
     <Compile Include="Migrations\201701260451277_SetDatesInStadiumAsNullable.Designer.cs">
       <DependentUpon>201701260451277_SetDatesInStadiumAsNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702201908148_RemovePlayer-PersonalInformationRelation.cs" />
+    <Compile Include="Migrations\201702201908148_RemovePlayer-PersonalInformationRelation.Designer.cs">
+      <DependentUpon>201702201908148_RemovePlayer-PersonalInformationRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702201929434_RemovePlayer-ContactInformationRelation_Part1.cs" />
+    <Compile Include="Migrations\201702201929434_RemovePlayer-ContactInformationRelation_Part1.Designer.cs">
+      <DependentUpon>201702201929434_RemovePlayer-ContactInformationRelation_Part1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702201935303_RemovePlayer-ContactInformationRelation_Part2.cs" />
+    <Compile Include="Migrations\201702201935303_RemovePlayer-ContactInformationRelation_Part2.Designer.cs">
+      <DependentUpon>201702201935303_RemovePlayer-ContactInformationRelation_Part2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702201951053_AddFieldTOContactInformation-PersonalInformation.cs" />
+    <Compile Include="Migrations\201702201951053_AddFieldTOContactInformation-PersonalInformation.Designer.cs">
+      <DependentUpon>201702201951053_AddFieldTOContactInformation-PersonalInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702210451568_CreatedTableExperience.cs" />
+    <Compile Include="Migrations\201702210451568_CreatedTableExperience.Designer.cs">
+      <DependentUpon>201702210451568_CreatedTableExperience.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702210456361_CreatedTableEmployee.cs" />
+    <Compile Include="Migrations\201702210456361_CreatedTableEmployee.Designer.cs">
+      <DependentUpon>201702210456361_CreatedTableEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702210624038_CreatedTableFrontOffice.cs" />
+    <Compile Include="Migrations\201702210624038_CreatedTableFrontOffice.Designer.cs">
+      <DependentUpon>201702210624038_CreatedTableFrontOffice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702210640171_CreatedTableOffensiveCoaches.cs" />
+    <Compile Include="Migrations\201702210640171_CreatedTableOffensiveCoaches.Designer.cs">
+      <DependentUpon>201702210640171_CreatedTableOffensiveCoaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702210653593_CreatedTableStaff.cs" />
+    <Compile Include="Migrations\201702210653593_CreatedTableStaff.Designer.cs">
+      <DependentUpon>201702210653593_CreatedTableStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702210947462_ConstructEmployeeRelations.cs" />
+    <Compile Include="Migrations\201702210947462_ConstructEmployeeRelations.Designer.cs">
+      <DependentUpon>201702210947462_ConstructEmployeeRelations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Addresses\partyAddress.cs" />
     <Compile Include="Models\EditPlayerViewModel.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\ErrorMessages.cs" />
+    <Compile Include="Models\Experience\Experience.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Players\Player.cs" />
-    <Compile Include="Models\Players\Players Information\Education_History.cs" />
+    <Compile Include="Models\Education_History.cs" />
     <Compile Include="Models\Players\Players Information\Information.cs" />
     <Compile Include="Models\Players\Players Information\MainPosition.cs" />
     <Compile Include="Models\Players\Players Information\Measurments.cs" />
     <Compile Include="Models\Addresses\Address.cs" />
     <Compile Include="Models\Addresses\Location.cs" />
-    <Compile Include="Models\Players\Profile\Contact Information\Email.cs" />
-    <Compile Include="Models\Players\Profile\Contact Information\Fax.cs" />
-    <Compile Include="Models\Players\Profile\Contact Information\Phone.cs" />
-    <Compile Include="Models\Players\Profile\ContactInformation.cs" />
-    <Compile Include="Models\Players\Profile\PersonalInformation.cs" />
+    <Compile Include="Models\Profile\Contact Information\Email.cs" />
+    <Compile Include="Models\Profile\Contact Information\Fax.cs" />
+    <Compile Include="Models\Profile\Contact Information\Phone.cs" />
+    <Compile Include="Models\Profile\ContactInformation.cs" />
+    <Compile Include="Models\Profile\PersonalInformation.cs" />
     <Compile Include="Models\Players\ViewModelPlayerInfo.cs" />
     <Compile Include="Models\Players\ViewModelProfile.cs" />
     <Compile Include="Models\Special Validations\CityValidation.cs" />
@@ -437,6 +481,9 @@
     <Compile Include="Models\Special Validations\FaxValidation.cs" />
     <Compile Include="Models\Special Validations\PhoneValidation.cs" />
     <Compile Include="Models\Stadiums\Stadium.cs" />
+    <Compile Include="Models\Staff\FrontOffice.cs" />
+    <Compile Include="Models\Staff\OffensiveCoaches.cs" />
+    <Compile Include="Models\Staff\Staff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -564,6 +611,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\NFL\contactInformation.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -627,9 +675,20 @@
     <Content Include="Views\Stadiums\Details\Details.cshtml" />
     <Content Include="Views\Stadiums\Details\Address.cshtml" />
     <Content Include="Views\Edit\Buttons.cshtml" />
+    <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\Staffs\Details\Profile\Address.cshtml" />
+    <Content Include="Views\Staffs\Details\Profile\ContactInformation.cshtml" />
+    <Content Include="Views\Staffs\Details\Profile\PersonalInformation.cshtml" />
+    <Content Include="Views\Staffs\Details\Profile\Profile.cshtml" />
+    <Content Include="Views\Staffs\Details\EditButtons.cshtml" />
+    <Content Include="Views\Staffs\Details\Details.cshtml" />
+    <Content Include="Views\Staffs\Details\Experience\Experience.cshtml" />
+    <Content Include="Views\Staffs\Details\Experience\WorkExperience.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Employees\" />
+    <Folder Include="Views\Staffs\Create\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -686,6 +745,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701260451277_SetDatesInStadiumAsNullable.resx">
       <DependentUpon>201701260451277_SetDatesInStadiumAsNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201908148_RemovePlayer-PersonalInformationRelation.resx">
+      <DependentUpon>201702201908148_RemovePlayer-PersonalInformationRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201929434_RemovePlayer-ContactInformationRelation_Part1.resx">
+      <DependentUpon>201702201929434_RemovePlayer-ContactInformationRelation_Part1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201935303_RemovePlayer-ContactInformationRelation_Part2.resx">
+      <DependentUpon>201702201935303_RemovePlayer-ContactInformationRelation_Part2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201951053_AddFieldTOContactInformation-PersonalInformation.resx">
+      <DependentUpon>201702201951053_AddFieldTOContactInformation-PersonalInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702210451568_CreatedTableExperience.resx">
+      <DependentUpon>201702210451568_CreatedTableExperience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702210456361_CreatedTableEmployee.resx">
+      <DependentUpon>201702210456361_CreatedTableEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702210624038_CreatedTableFrontOffice.resx">
+      <DependentUpon>201702210624038_CreatedTableFrontOffice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702210640171_CreatedTableOffensiveCoaches.resx">
+      <DependentUpon>201702210640171_CreatedTableOffensiveCoaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702210653593_CreatedTableStaff.resx">
+      <DependentUpon>201702210653593_CreatedTableStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702210947462_ConstructEmployeeRelations.resx">
+      <DependentUpon>201702210947462_ConstructEmployeeRelations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

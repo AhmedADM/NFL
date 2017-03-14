@@ -15,6 +15,15 @@ namespace NFL.Migrations
         protected override void Seed(ApplicationDbContext context)
         {
 
+
+            var positions = context.MainPosition.ToList();
+
+
+            if(positions == null || !positions.Any())
+            {
+                
+            }
+
         }
     }
 }

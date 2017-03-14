@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NFL.Models.Addresses;
 using System.ComponentModel.DataAnnotations.Schema;
+using NFL.Models.Profile;
 
 namespace NFL.Models.Player
 {
@@ -14,9 +15,11 @@ namespace NFL.Models.Player
         [Key]
         public int playerId { get; set; }
 
-        public virtual PersonalInformation personalInformation { get; set; }
+        [NotMapped]
+        public PersonalInformation personalInformation { get; set; }
 
-        public virtual ContactInformation contactInformation { get; set; }
+        [NotMapped]
+        public  ContactInformation contactInformation { get; set; }
 
 
         //Inner join to partyAddress Table

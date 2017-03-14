@@ -8,6 +8,10 @@ using NFL.Models.Player.Players_Information;
 using NFL.Models.Addresses;
 using NFL.Models;
 using NFL.Models.Player;
+using NFL.Models.Profile;
+using NFL.Models.Experiences;
+using NFL.Models.Employees;
+using NFL.Models.Staff;
 
 namespace NFL
 {
@@ -80,6 +84,31 @@ namespace NFL
         public DbSet<partyAddress> PartyAddress { get; set; }
         //Stadiums
         public DbSet<Stadium> Stadium { get; set; }
+
+
+
+        //Experience
+
+        public DbSet<Experience> Experience { get; set; }
+
+
+        //Employee
+
+       public DbSet<Employee> Employee { get; set; }
+
+
+        //Staff
+
+        public DbSet<Staff> Staff { get; set; }
+        public DbSet<FrontOffice> FrontOffice { get; set; }
+        public DbSet<OffensiveCoaches> OffensiveCoaches { get; set; }
+
+        //And more to add later
+
+
+
+
+
     }
 
    

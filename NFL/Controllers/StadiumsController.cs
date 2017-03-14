@@ -205,26 +205,6 @@ namespace NFL.Models.Stadiums
             return RedirectToAction("Index", "Stadiums");
         }
 
-        // POST: Stadiums/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            var stadium = await db.Stadium.FindAsync(id);
-            db.Stadium.Remove(stadium);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
 
         public Stadium getAStadium(int Id)
         {

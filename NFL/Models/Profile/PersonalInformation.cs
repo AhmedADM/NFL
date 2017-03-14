@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using NFL.Models.Players_Information;
-namespace NFL.Models.Player
+namespace NFL.Models.Profile
 {
     [Serializable()]
     public class PersonalInformation
@@ -14,11 +14,11 @@ namespace NFL.Models.Player
 
         private DateTime _BirthDate;
 
-        [XmlIgnore]
-        [Key, ForeignKey("Player")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int playerId { get; set; }
-        public virtual Player Player { get; set; }
+        public int Id { get; set; }
+
+        public int personId { get; set; }
+
+        public string Person { get; set; }
 
         [Required, 
         RegularExpression("^[a-zA-Z]+$",
