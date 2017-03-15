@@ -496,6 +496,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-NFL-20161220010824.mdf" />
+    <Content Include="App_Data\aspnet-NFL-20161220010824_log.ldf">
+      <DependentUpon>aspnet-NFL-20161220010824.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\aspnet-NFL-20161220065143.mdf" />
     <Content Include="App_Data\aspnet-NFL-20161220065143_log.ldf">
       <DependentUpon>aspnet-NFL-20161220065143.mdf</DependentUpon>
